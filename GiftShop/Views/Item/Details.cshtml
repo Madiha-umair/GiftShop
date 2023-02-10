@@ -1,0 +1,24 @@
+﻿
+@model GiftShop.Models.ViewModels.DetailsItem
+@{
+    ViewBag.Title = "ShowItem";
+}
+
+<h2>Item Details</h2>
+
+<a style=" border: 2px solid black;" href="/Item/List"> Go back to List</a>
+<br />
+<a style=" border: 2px solid black;" href="/Item/Edit/@Model.SelectedItem.ItemId">Update</a>
+<br />
+<a style="color:#ab2020; border: 2px solid black;" href="/Item/DeleteConfirm/@Model.SelectedItem.ItemId">Delete</a>
+<div>Item Name :@Model.SelectedItem.ItemName </div>
+<div>Item Description :@Model.SelectedItem.ItemDescription</div>
+
+<div>
+    <h3>This item present in:</h3>
+    @foreach( var gift in Model.ItemOfGifts)
+    {
+    <a href="/Gift/Details/@gift.GiftId">GiftId: @gift.GiftId , Basketsize: @gift.GiftBasketSize for Customer Name: @gift.CustomerName </a>
+    <br/>
+    }
+</div>

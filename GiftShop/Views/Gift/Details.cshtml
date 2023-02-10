@@ -1,0 +1,38 @@
+﻿@model GiftShop.Models.ViewModels.DetailsGift
+@{
+    ViewBag.Title = "ShowGift";
+}
+
+<h2>Gift Details</h2>
+
+<a href="/Gift/List"> Go back to List</a>
+<br />
+<a href="/Gift/Edit/@Model.SelectedGift.GiftId">Update</a>
+<br />
+<a style="color:#ab2020;" href="/Gift/DeleteConfirm/@Model.SelectedGift.GiftId">Delete</a>
+<div>GiftBasket Size :@Model.SelectedGift.GiftBasketSize </div>
+<div>GiftBasket Details :@Model.SelectedGift.GiftBasketDetails</div>
+<div>GiftBasket Quantity :@Model.SelectedGift.GiftBasketQuantity</div>
+
+
+<div>
+    <h3>Items in the Gift Basket of @Model.SelectedGift.CustomerName (GiftID:@Model.SelectedGift.GiftId) </h3>
+    @foreach (var item in Model.AvailableItems)
+    {
+        <a href="/Item/Details/@item.ItemId">Item Name: @item.ItemName , Item Description: @item.ItemDescription</a>
+        <a style="color:#ab2020;" href="/Gift/Unassociate/@Model.SelectedGift.GiftId?ItemId=@item.ItemId">[X]</a> <br />
+    }
+
+    <div>
+        <h3> Add new item </h3>
+        <form method="POST" action="/Gift/Associate/@Model.SelectedGift.GiftId">
+            <select name="ItemId">
+                @foreach (var item in Model.OtherItems)
+                {
+                    <option value="@item.ItemId">@item.ItemName, @item.ItemDescription</option>
+                }
+            </select>
+            <input type="submit" value="Associate Item" />
+        </form>
+    </div>
+</div>

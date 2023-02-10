@@ -1,0 +1,20 @@
+﻿
+
+@model IEnumerable<GiftShop.Models.OrderDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<a href="/Order/New">Add New Order</a>
+@foreach (var order in Model)
+{
+    <h2><a href="/Order/Details/@order.OrderId"> Customer Name: @order.CustomerName</a></h2>
+    <p>Customer Address: @order.CustomerAddress</p>
+    <p>Customer ContactNo :@order.CustomerContactNo</p>
+    <p>Order Date :@order.OrderDate</p>
+    <p>Total Items :@order.TotalItems</p>
+    <p>Total Amount :@order.TotalAmount</p>
+
+}

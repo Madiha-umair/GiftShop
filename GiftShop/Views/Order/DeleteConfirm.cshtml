@@ -1,0 +1,23 @@
+﻿
+@model GiftShop.Models.OrderDto
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<h2>Are you sure you want to delete this Order?</h2>
+
+<a href="/Order/List">Cancel</a>
+
+
+<div>Customer Name:@Model.CustomerName </div>
+<p>Customer Address: @Model.CustomerAddress</p>
+<p>Customer ContactNo :@Model.CustomerContactNo</p>
+<p>Order Date :@Model.OrderDate</p>
+<p>Total Items :@Model.TotalItems</p>
+<p>Total Amount :@Model.TotalAmount</p>
+
+
+<form action="/Order/Delete/@Model.OrderId" method="POST">
+    <input type="submit" value="Confirm Delete" />
+
+</form>

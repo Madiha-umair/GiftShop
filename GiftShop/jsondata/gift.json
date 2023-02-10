@@ -1,0 +1,9 @@
+﻿{
+  //Content for adding data
+  // This is the post data that we want to send and add in gift
+  "GiftBasketSize": "Standard",
+  "GiftBasketQuantity": 5,
+  "GiftBasketDetails": " Bag Of MK",
+  " OrderId": 2
+
+}

@@ -1,0 +1,41 @@
+﻿@model GiftShop.Models.ViewModels.UpdateGift
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form action="/Gift/Update/@Model.SelectedGift.GiftId" method="POST">
+    <div>
+        <label>GiftId:</label>
+        <input type="text" name="GiftId" value="@Model.SelectedGift.GiftId" />
+    </div>
+    <div>
+        <label>Size:</label>
+        <input type="text" name="GiftBasketSize" value="@Model.SelectedGift.GiftBasketSize" />
+    </div>
+    <div>
+        <label>Quantity:</label>
+        <input type="number" name="GiftBasketQuantity" value="@Model.SelectedGift.GiftBasketQuantity"/>
+    </div>
+    <div>
+        <label>Details:</label>
+        <input type="text" name="GiftBasketDetails" value="@Model.SelectedGift.GiftBasketDetails" />
+    </div>
+    <div>
+        <label>Order Id:</label>
+        <select name="OrderId">
+            @foreach (var Order in Model.OrderOptions)
+            {
+                <option value="@Order.OrderId">
+                    @Order.CustomerName
+                </option>
+            }
+        </select>
+    </div>
+    <div>
+        <input type="submit" value="Update Gift" value="@Model.SelectedGift"/>
+    </div>
+
+</form>

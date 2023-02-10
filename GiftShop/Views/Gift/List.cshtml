@@ -1,0 +1,15 @@
+﻿@model IEnumerable<GiftShop.Models.GiftDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<a href="/Gift/New">Add New Gift</a>
+@foreach (var gift in Model)
+{
+    <h2><a href="/Gift/Details/@gift.GiftId"> GiftBasketSize: @gift.GiftBasketSize</a></h2>
+    <p>GiftBasketQuantity: @gift.GiftBasketQuantity</p>
+    <p>GiftBasketDetails: @gift.GiftBasketDetails</p>
+    <p>CustomerName: @gift.CustomerName</p>
+}

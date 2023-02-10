@@ -1,0 +1,43 @@
+﻿
+@model GiftShop.Models.OrderDto
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form action="/Order/Update/@Model.OrderId" method="POST">
+    <div>
+        <label>OrderId:</label>
+        <input type="number" name="OrderId" />
+    </div>
+    <div>
+        <label>Customer Name:</label>
+        <input type="text" name="CustomerName" />
+    </div>
+    <div>
+        <label>Customer Address :</label>
+        <input type="text" name="CustomerAddress" />
+    </div>
+    <div>
+        <label>Customer ContactNo :</label>
+        <input type="number" name="CustomerContactNo" />
+    </div>
+    <div>
+        <label>Order Date:</label>
+        <input type="datetime" name="OrderDate" />
+    </div>
+    <div>
+        <label>Total Items:</label>
+        <input type="number" name="TotalItems" />
+    </div>
+    <div>
+        <label>Total Amount:</label>
+        <input type="number" name="TotalAmount" />
+    </div>
+    <div>
+        <input type="submit" value="Update Order" />
+    </div>
+
+</form>

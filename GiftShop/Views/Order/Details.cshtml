@@ -1,0 +1,32 @@
+﻿
+
+@model GiftShop.Models.ViewModels.DetailsOrder
+@{
+    ViewBag.Title = "ShowOrder";
+}
+
+<h2>Order Details</h2>
+<div style=" margin: 20px;">
+    <a style=" border: 2px solid black;" href="/Order/List"> Go back to List</a>
+</div>
+<div style=" margin: 20px;">
+    <a style=" border: 2px solid black;" href="/Order/Edit/@Model.SelectedOrder.OrderId">Update</a>
+ </div>
+<div style=" margin: 20px;">
+    <a style="color:#ab2020; border: 2px solid black;" href="/Order/DeleteConfirm/@Model.SelectedOrder.OrderId">Delete</a>
+</div>
+    <h3>Customer Name :@Model.SelectedOrder.CustomerName </h3>
+    <div>Customer Address :@Model.SelectedOrder.CustomerAddress</div>
+    <div>Customer ContactNo :@Model.SelectedOrder.CustomerContactNo</div>
+    <div>Order Date  :@Model.SelectedOrder.OrderDate </div>
+    <div>Total Items:@Model.SelectedOrder.TotalItems</div>
+    <div>Total Amount :@Model.SelectedOrder.TotalAmount</div>
+
+<div style="margin-top:100px;">
+    <h3>Gifts related to this Order</h3>
+    @foreach(var gift in Model.RelatedGifts)
+            {
+                <a href="/Gift/Details/@gift.GiftId">@gift.GiftBasketSize</a>
+                <br/>
+            }
+</div>
