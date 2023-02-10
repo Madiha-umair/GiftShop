@@ -17,7 +17,17 @@ namespace GiftShop.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/GiftData/ListGifts
+        /// <summary>
+        /// Returns all gifts in the system.
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: all gifts in the database, including their associated orders.
+        /// </returns>
+        /// <example>
+        /// GET: api/GiftData/ListGifts
+        /// </example>
+        /// 
         [HttpGet]
         public IEnumerable<GiftDto> ListGifts()
         {
@@ -36,7 +46,18 @@ namespace GiftShop.Controllers
             return GiftDtos;
         }
 
-        // GET: api/GiftData/ListGiftsForOrders
+        /// <summary>
+        /// Gathers information about all gifts related to a particular Order ID
+        /// </summary>
+        /// <param name="id">Order Id</param>
+        /// <returns>
+        ///  HEADER: 200 (OK)
+        /// CONTENT: all giftss in the database, including their associated orders matched with a particular Order ID
+        /// </returns>
+        /// <example>
+        /// GET: api/GiftData/ListGiftsForOrders
+        /// </example>
+
         [HttpGet]
         public IEnumerable<GiftDto> ListGiftsForOrders(int id)
         {
@@ -55,7 +76,17 @@ namespace GiftShop.Controllers
             return GiftDtos;
         }
 
-        // GET: api/GiftData/ListGiftsForItem
+        /// <summary>
+        /// Gathers information about gifts related to a particular item
+        /// </summary>
+        /// <param name="id">Item Id</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: all gifts in the database, including their associated orders that match to a particular item id
+        /// </returns>
+        /// <example>
+        /// GET: api/GiftData/ListGiftsForItem
+        /// </example>
         [HttpGet]
         [ResponseType(typeof(GiftDto))]
         public IEnumerable<GiftDto> ListGiftsForItem(int id)
@@ -77,6 +108,19 @@ namespace GiftShop.Controllers
             }));
             return GiftDtos;
         }
+        /// <summary>
+        /// Associates a particular item with a particular gift
+        /// </summary>
+        /// <param name="giftid">The gift ID primary key</param>
+        /// <param name="itemid">The item ID primary key</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <example>
+        /// POST api/GiftData/AssociateGiftWithItem/5/1
+        /// </example>
 
         [HttpPost]
         [Route("api/GiftData/AssociateGiftWithItem/{giftid}/{itemid}")]
@@ -96,6 +140,19 @@ namespace GiftShop.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Removes an association between a particular item and a particular gift
+        /// </summary>
+        /// <param name="giftid">The gift ID primary key</param>
+        /// <param name="itemid">The item ID primary key</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <example>
+        /// POST api/AnimalData/AssociateGiftWithItem/9/1
+        /// </example>
 
         [HttpPost]
         [Route("api/GiftData/UnAssociateGiftWithItem/{giftid}/{itemid}")]
@@ -120,8 +177,20 @@ namespace GiftShop.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Returns all gifts in the system.
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: An gift in the system matching up to the gift ID primary key
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <param name="id">The primary key of the gift</param>
+        /// <example>
+        /// GET: api/GiftData/FindGift/5
+        /// </example>
 
-        // GET: api/GiftData/FindGift/5
         [ResponseType(typeof(Gift))]
         [HttpGet]
         public IHttpActionResult FindGift(int id)
@@ -143,7 +212,23 @@ namespace GiftShop.Controllers
             return Ok(GiftDto);
         }
 
-        // POST: api/GiftData/UpdateGift/5
+        /// <summary>
+        /// Updates a particular gift in the system with POST Data input
+        /// </summary>
+        /// <param name="id">Represents the Gift ID primary key</param>
+        /// <param name="animal">JSON FORM DATA of an gift</param>
+        /// <returns>
+        /// HEADER: 204 (Success, No Content Response)
+        /// or
+        /// HEADER: 400 (Bad Request)
+        /// or
+        /// HEADER: 404 (Not Found)
+        /// </returns>
+        /// <example>
+        /// POST: api/GiftData/UpdateGift/5
+        /// FORM DATA: Gift JSON Object
+        /// </example>
+
         [ResponseType(typeof(void))]
         [HttpPost]
         public IHttpActionResult UpdateGift(int id, Gift gift)
@@ -179,7 +264,21 @@ namespace GiftShop.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/GiftData/AddGift
+        /// <summary>
+        /// Adds a gift to the system
+        /// </summary>
+        /// <param name="gift">JSON FORM DATA of an gift</param>
+        /// <returns>
+        /// HEADER: 201 (Created)
+        /// CONTENT: Gift ID, Gift Data
+        /// or
+        /// HEADER: 400 (Bad Request)
+        /// </returns>
+        /// <example>
+        /// POST: api/GiftData/AddGift
+        /// FORM DATA: Gift JSON Object
+        /// </example>
+        
         [ResponseType(typeof(Gift))]
         [HttpPost]
         public IHttpActionResult AddGift(Gift gift)
@@ -195,7 +294,20 @@ namespace GiftShop.Controllers
             return CreatedAtRoute("DefaultApi", new { id = gift.GiftId }, gift);
         }
 
-        // POST: api/GiftData/DeleteGift/5
+        /// <summary>
+        /// Deletes an gift from the system by it's ID.
+        /// </summary>
+        /// <param name="id">The primary key of the gift</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <example>
+        /// POST: api/GiftData/DeleteGift/5
+        /// FORM DATA: (empty)
+        /// </example>
+
         [ResponseType(typeof(Gift))]
         [HttpPost]
         public IHttpActionResult DeleteGift(int id)

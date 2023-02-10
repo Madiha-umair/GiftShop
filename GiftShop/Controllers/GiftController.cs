@@ -132,16 +132,12 @@ namespace GiftShop.Controllers
             return RedirectToAction("Details/" + id);
         }
 
-
-
         // creating a new page to display for error
         public ActionResult Error()
         {
             return View();
         }
 
-
-        //
         // GET: Gift/New
         public ActionResult New()
         {

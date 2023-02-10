@@ -60,8 +60,6 @@ namespace GiftShop.Controllers
         }
 
 
-
-
         // GET: Item/Details/5
         public ActionResult Details(int id)
         {

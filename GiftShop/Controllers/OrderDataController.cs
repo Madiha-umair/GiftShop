@@ -16,7 +16,18 @@ namespace GiftShop.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/OrderData/ListOrder
+
+        /// <summary>
+        /// Returns all Orders in the system.
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: all Orders in the database, including their associated Order.
+        /// </returns>
+        /// <example>
+        /// GET: api/OrderData/ListOrder
+        /// </example>
+         
         [HttpGet]
         public IEnumerable<OrderDto> ListOrder()
         {
@@ -37,7 +48,21 @@ namespace GiftShop.Controllers
             return OrderDtos;
         }
 
-        // GET: api/OrderData/FindOrder/5
+        /// <summary>
+        /// Returns all Orders in the system.
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: An Order in the system matching up to the Order Id primary key
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <param name="id">The primary key of the Order</param>
+        /// <example>
+        /// GET: api/OrderData/FindOrder/5
+        /// </example>
+
+   
         [ResponseType(typeof(Order))]
         [HttpGet]
         public IHttpActionResult FindOrder(int id)
@@ -61,7 +86,22 @@ namespace GiftShop.Controllers
             return Ok(OrderDto);
         }
 
-        // POST: api/OrderData/UpdateOrder/5
+        /// <summary>
+        /// Updates a particular Order in the system with POST Data input
+        /// </summary>
+        /// <param name="id">Represents the Order Id primary key</param>
+        /// <param name="Order">JSON FORM DATA of an order</param>
+        /// <returns>
+        /// HEADER: 204 (Success, No Content Response)
+        /// or
+        /// HEADER: 400 (Bad Request)
+        /// or
+        /// HEADER: 404 (Not Found)
+        /// </returns>
+        /// <example>
+        /// POST: api/OrderData/UpdateOrder/5
+        /// FORM DATA: Species JSON Object
+        /// </example>
 
         [ResponseType(typeof(void))]
         [HttpPost]
@@ -98,7 +138,21 @@ namespace GiftShop.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/OrderData/AddOrder
+        /// <summary>
+        /// Adds an Order to the system
+        /// </summary>
+        /// <param name="Order">JSON FORM DATA of an Order</param>
+        /// <returns>
+        /// HEADER: 201 (Created)
+        /// CONTENT: Order Id, Order Data
+        /// or
+        /// HEADER: 400 (Bad Request)
+        /// </returns>
+        /// <example>
+        /// POST: api/OrderData/AddOrder
+        /// FORM DATA: Order JSON Object
+        /// </example>
+
         [ResponseType(typeof(Order))]
         [HttpPost]
         public IHttpActionResult AddOrder(Order order)
@@ -114,7 +168,20 @@ namespace GiftShop.Controllers
             return CreatedAtRoute("DefaultApi", new { id = order.OrderId }, order);
         }
 
-        // POST: api/OrderData/DeleteOrder/5
+        /// <summary>
+        /// Deletes an Order  from the system by it's ID.
+        /// </summary>
+        /// <param name="id">The primary key of the Order</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <example>
+        /// POST: api/OrderData/DeleteOrder/5
+        /// FORM DATA: (empty)
+        /// </example>
+
         [ResponseType(typeof(Order))]
         [HttpPost]
         public IHttpActionResult DeleteOrder(int id)

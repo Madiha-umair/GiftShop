@@ -96,8 +96,6 @@ namespace GiftShop.Controllers
         }
 
 
-
-
         // GET: Order/New
         public ActionResult New()
         {
