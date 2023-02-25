@@ -15,6 +15,11 @@ namespace GiftShop.Models
 
         public string ItemDescription { get; set; }
 
+        //data needed for keeping track of item images uploaded
+        //images deposited into /Content/Images/Items/{id}.{extension}
+        public bool ItemHasPic { get; set; }
+        public string PicExtension { get; set; }
+
         //An item will be present in many Gifts
         public ICollection<Gift> Gifts { get; set; }
     }
@@ -25,5 +30,10 @@ namespace GiftShop.Models
         public string ItemName { get; set; }
 
         public string ItemDescription { get; set; }
+
+        //data needed for keeping track of items images uploaded
+        //images deposited into /Content/Images/Items/{id}.{extension}
+        public bool ItemHasPic { get; set; }
+        public string PicExtension { get; set; }
     }
 }

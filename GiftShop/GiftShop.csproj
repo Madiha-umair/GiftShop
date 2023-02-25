@@ -213,6 +213,10 @@
     <Compile Include="Migrations\202302072133534_Gifts-Items.designer.cs">
       <DependentUpon>202302072133534_Gifts-Items.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202302232216268_item-image.cs" />
+    <Compile Include="Migrations\202302232216268_item-image.designer.cs">
+      <DependentUpon>202302232216268_item-image.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Gift.cs" />
@@ -305,6 +309,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\Items\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -334,6 +339,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202302072133534_Gifts-Items.resx">
       <DependentUpon>202302072133534_Gifts-Items.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302232216268_item-image.resx">
+      <DependentUpon>202302232216268_item-image.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -82,7 +82,7 @@ namespace GiftShop.Controllers
             ViewModel.SelectedOrder = SelectedOrder;
             //showcase information about gifts related to this order
             //send a request to gather information about gifts related to a particular order Id
-            url = "giftdata/listgiftsfororders/"+id;
+            url = "giftdata/listgiftsfororder/"+id;
             response= client.GetAsync(url).Result;
             IEnumerable<GiftDto> RelatedGifts = response.Content.ReadAsAsync<IEnumerable<GiftDto>>().Result; 
             ViewModel.RelatedGifts = RelatedGifts;

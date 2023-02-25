@@ -5,16 +5,32 @@
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
+<h2>List of Orders</h2>
 
-<a href="/Order/New">Add New Order</a>
-@foreach (var order in Model)
-{
-    <h2><a href="/Order/Details/@order.OrderId"> Customer Name: @order.CustomerName</a></h2>
-    <p>Customer Address: @order.CustomerAddress</p>
-    <p>Customer ContactNo :@order.CustomerContactNo</p>
-    <p>Order Date :@order.OrderDate</p>
-    <p>Total Items :@order.TotalItems</p>
-    <p>Total Amount :@order.TotalAmount</p>
+<table class="ordertable">
+    <tr>
+        <th style="color: blue; width: 180px; padding-bottom: 10px;">Customer Name</th>
+        <th style="color: blue; width: 180px; padding-bottom: 10px;">CustomerAddress</th>
+        <th style="color: blue; width: 180px; padding-bottom: 10px;">Customer ContactNo </th>
+        <th style="color: blue; width: 180px; padding-bottom: 10px;">Order Date</th>
+        <th style="color: blue; width: 180px; padding-bottom: 10px;">Total Items</th>
+        <th style="color: blue; width: 180px; padding-bottom: 10px;">Total Amount($)</th>
+    </tr>
 
-}
+    @foreach (var order in Model)
+    {
+        <tr>
+            <td> <a  href="/Order/Details/@order.OrderId"> @order.CustomerName</a></td>
+            <td style="width: 180px; "> @order.CustomerAddress</td>
+            <td style="width: 180px; " > @order.CustomerContactNo</td>
+            <td style="width: 180px; "> @order.OrderDate</td>
+            <td style="width: 180px; "> @order.TotalItems</td>
+            <td style="width: 180px; "> @order.TotalAmount</td>
+        </tr>
+    }
+</table>
+
+<div style=" margin-top: 40px; margin-left: 180px; ">
+    <a  style="border: 1px solid black; margin: 15px; padding: 15px; text-decoration: none; text-align: center; background-color: #47d147; color: black; " href="/Order/New">Add New Order</a>
+</div>
+

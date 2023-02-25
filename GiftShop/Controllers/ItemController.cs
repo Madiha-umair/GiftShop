@@ -146,7 +146,7 @@ namespace GiftShop.Controllers
 
         // POST: Item/Edit/5
         [HttpPost]
-        public ActionResult Update(int id, Item item)
+        public ActionResult Update(int id, Item item, HttpPostedFileBase ItemPic)
         {
             string url = "itemdata/updateitem/"+id;
             string jsonpayload = jss.Serialize(item);
@@ -155,8 +155,24 @@ namespace GiftShop.Controllers
             HttpContent content = new StringContent(jsonpayload);
             content.Headers.ContentType.MediaType = "application/json";
             HttpResponseMessage response = client.PostAsync(url, content).Result;
-            if (response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode && ItemPic != null)
             {
+                //Updating the item picture as a separate request
+                Debug.WriteLine("Calling Update Image method.");
+                //Send over image data for player
+                url = "ItemData/UploadItemPic/" + id;
+                //Debug.WriteLine("Received Item Picture "+ ItemPic.FileName);
+
+                MultipartFormDataContent requestcontent = new MultipartFormDataContent();
+                HttpContent imagecontent = new StreamContent(ItemPic.InputStream);
+                requestcontent.Add(imagecontent, "ItemPic", ItemPic.FileName);
+                response = client.PostAsync(url, requestcontent).Result;
+
+                return RedirectToAction("List");
+            }
+            else if (response.IsSuccessStatusCode)
+            {
+                //No image upload, but update still successful
                 return RedirectToAction("List");
             }
             else

@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using GiftShop.Models;
@@ -130,7 +133,9 @@ namespace GiftShop.Controllers
             {
                 ItemId = Item.ItemId,
                 ItemName = Item.ItemName,
-                ItemDescription = Item.ItemDescription
+                ItemDescription = Item.ItemDescription,
+                ItemHasPic = Item.ItemHasPic,
+                PicExtension= Item.PicExtension,
             };
             if (Item == null)
             {
@@ -174,6 +179,10 @@ namespace GiftShop.Controllers
 
             db.Entry(item).State = EntityState.Modified;
 
+            //Picture update is handled by another method.
+            db.Entry(item).Property(a => a.ItemHasPic).IsModified = false;
+            db.Entry(item).Property(a => a.PicExtension).IsModified = false;
+
             try
             {
                 db.SaveChanges();
@@ -191,6 +200,92 @@ namespace GiftShop.Controllers
             }
 
             return StatusCode(HttpStatusCode.NoContent);
+        }
+
+
+        /// <summary>
+        /// Receives item picture data, uploads it to the webserver and updates the item's HasPic option
+        /// </summary>
+        /// <param name="id">the item id</param>
+        /// <returns>status code 200 if successful.</returns>
+        /// <example>
+        /// curl -F giftpic=@file.jpg "https://localhost:xx/api/itemdata/uploaditempic/2"
+        /// POST: api/itemData/UpdateitemPic/3
+        /// HEADER: enctype=multipart/form-data
+        /// FORM-DATA: image
+        /// </example>
+        /// https://stackoverflow.com/questions/28369529/how-to-set-up-a-web-api-controller-for-multipart-form-data
+
+        [HttpPost]
+        public IHttpActionResult UploadItemPic(int id)
+        {
+
+            bool haspic = false;
+            string picextension;
+            if (Request.Content.IsMimeMultipartContent())
+            {
+                Debug.WriteLine("Received multipart form data.");
+
+                int numfiles = HttpContext.Current.Request.Files.Count;
+                Debug.WriteLine("Files Received: " + numfiles);
+
+                //Check if a file is posted
+                if (numfiles == 1 && HttpContext.Current.Request.Files[0] != null)
+                {
+                    var ItemPic = HttpContext.Current.Request.Files[0];
+                    //Check if the file is empty
+                    if (ItemPic.ContentLength > 0)
+                    {
+                        //establish valid file types (can be changed to other file extensions if desired!)
+                        var valtypes = new[] { "jpeg", "jpg", "png", "gif" };
+                        var extension = Path.GetExtension(ItemPic.FileName).Substring(1);
+                        //Check the extension of the file
+                        if (valtypes.Contains(extension))
+                        {
+                            try
+                            {
+                                //file name is the id of the image
+                                string fn = id + "." + extension;
+
+                                //get a direct file path to ~/Content/items/{id}.{extension}
+                                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Images/Items/"), fn);
+
+                                //save the file
+                                ItemPic.SaveAs(path);
+
+                                //if these are all successful then we can set these fields
+                                haspic = true;
+                                picextension = extension;
+
+                                //Update the animal haspic and picextension fields in the database
+                                Item Selecteditem = db.Items.Find(id);
+                                Selecteditem.ItemHasPic = haspic;
+                                Selecteditem.PicExtension = extension;
+                                db.Entry(Selecteditem).State = EntityState.Modified;
+
+                                db.SaveChanges();
+
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine("item Image was not saved successfully.");
+                                Debug.WriteLine("Exception:" + ex);
+                                return BadRequest();
+                            }
+                        }
+                    }
+
+                }
+
+                return Ok();
+            }
+            else
+            {
+                //not multipart form data
+                return BadRequest();
+
+            }
+
         }
 
         /// <summary>

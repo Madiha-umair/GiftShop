@@ -153,6 +153,7 @@ namespace GiftShop.Controllers
 
         // POST: Gift/Create
         [HttpPost]
+        [Authorize]
         public ActionResult Create(Gift gift)
         {
             Debug.WriteLine("Successfully created!");
@@ -204,8 +205,10 @@ namespace GiftShop.Controllers
 
         // POST: Gift/Edit/5
         [HttpPost]
+        [Authorize]
         public ActionResult Update(int id, Gift gift)
         {
+            
             string url = "giftdata/updategift/"+id;
             string jsonpayload = jss.Serialize(gift);
             Debug.WriteLine(jsonpayload);

@@ -28,3 +28,10 @@ textarea {
     background-color: #777;
     border-color: #fff
 }
+.col-md-6 col-sm-12  #itemimg {
+    width: 30px;
+    height: 30px;
+}
+.ordertable{
+    background-color:aqua;
+}

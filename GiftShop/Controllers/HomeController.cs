@@ -10,6 +10,7 @@ namespace GiftShop.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Message = "GiftBasketShop";
             return View();
         }
 

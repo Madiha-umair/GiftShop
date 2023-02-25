@@ -5,14 +5,14 @@
 
 <h2>Gift Details</h2>
 
-<a href="/Gift/List"> Go back to List</a>
-<br />
-<a href="/Gift/Edit/@Model.SelectedGift.GiftId">Update</a>
-<br />
-<a style="color:#ab2020;" href="/Gift/DeleteConfirm/@Model.SelectedGift.GiftId">Delete</a>
 <div>GiftBasket Size :@Model.SelectedGift.GiftBasketSize </div>
 <div>GiftBasket Details :@Model.SelectedGift.GiftBasketDetails</div>
 <div>GiftBasket Quantity :@Model.SelectedGift.GiftBasketQuantity</div>
+<div style=" margin-top: 30px; margin-bottom: 130px; ">
+    <a style="border: 1px solid black; text-decoration:none; margin-right: 15px; text-align: center; display: inline-block; background-color: lightgrey; color:black; width: 120px; " href="/Gift/List"> Go back to List</a>
+    <a style="border: 1px solid black; text-decoration: none; margin-right: 15px; text-align: center; display: inline-block; background-color: #47d147; color: black; width: 120px; " href="/Gift/Edit/@Model.SelectedGift.GiftId">Update</a>
+    <a style="color: #ab2020; text-decoration: none; text-align: center; display: inline-block; border: 1px solid black; background-color:crimson; color: black; width: 120px; " href="/Gift/DeleteConfirm/@Model.SelectedGift.GiftId">Delete</a>
+</div>
 
 
 <div>
@@ -36,3 +36,4 @@
         </form>
     </div>
 </div>
+

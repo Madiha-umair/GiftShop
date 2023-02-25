@@ -4,9 +4,11 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using GiftShop.Models;
@@ -55,11 +57,11 @@ namespace GiftShop.Controllers
         /// CONTENT: all giftss in the database, including their associated orders matched with a particular Order ID
         /// </returns>
         /// <example>
-        /// GET: api/GiftData/ListGiftsForOrders
+        /// GET: api/GiftData/ListGiftsForOrder
         /// </example>
 
         [HttpGet]
-        public IEnumerable<GiftDto> ListGiftsForOrders(int id)
+        public IEnumerable<GiftDto> ListGiftsForOrder(int id)
         {
             List<Gift> Gifts = db.Gifts.Where(a=>a.OrderId==id).ToList();
             List<GiftDto> GiftDtos = new List<GiftDto>();
@@ -278,7 +280,7 @@ namespace GiftShop.Controllers
         /// POST: api/GiftData/AddGift
         /// FORM DATA: Gift JSON Object
         /// </example>
-        
+
         [ResponseType(typeof(Gift))]
         [HttpPost]
         public IHttpActionResult AddGift(Gift gift)

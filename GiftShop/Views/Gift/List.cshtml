@@ -3,13 +3,28 @@
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
+<h2>List of Gifts</h2>
 
-<a href="/Gift/New">Add New Gift</a>
-@foreach (var gift in Model)
-{
-    <h2><a href="/Gift/Details/@gift.GiftId"> GiftBasketSize: @gift.GiftBasketSize</a></h2>
-    <p>GiftBasketQuantity: @gift.GiftBasketQuantity</p>
-    <p>GiftBasketDetails: @gift.GiftBasketDetails</p>
-    <p>CustomerName: @gift.CustomerName</p>
-}
+<table class="ordertable">
+    <tr>
+        <th style="color: blue; width: 180px; padding-bottom: 10px;">GiftBasket Size</th>
+        <th style="color: blue; width: 180px; padding-bottom: 10px;">GiftBasket Quantity</th>
+        <th style="color: blue; width: 180px; padding-bottom: 10px;"> GiftBasket Details</th>
+        <th style="color: blue; width: 180px; padding-bottom: 10px;">Customer Name</th>
+    </tr>
+
+    @foreach (var gift in Model)
+    {
+        <tr>
+            <td> <a href="/Gift/Details/@gift.GiftId"> @gift.GiftBasketSize</a></td>
+            <td style="width: 180px; "> @gift.GiftBasketQuantity</td>
+            <td style="width: 180px; ">  @gift.GiftBasketDetails</td>
+            <td style="width: 180px; "> @gift.CustomerName</td>
+        </tr>
+    }
+</table>
+
+<div style="margin-top: 40px; margin-left: 180px; ">
+    <a style="border: 1px solid black; margin: 15px; padding: 15px; text-decoration: none; text-align: center; background-color: #47d147; color: black; " href="/Gift/New">Add New Gift</a>
+</div>
+
